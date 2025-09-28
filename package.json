@@ -2,10 +2,10 @@
   "name": "altera_numero_de_telefone",
   "version": "1.0.0",
   "description": "API em Node.js com Express para consultar tabelas history, conversation e rental em um banco PostgreSQL.",
-  "main": "src/server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "start": "node server.js",
+    "dev": "node --watch server.js"
   },
   "keywords": [
     "express",
@@ -18,6 +18,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "postgres": "^3.4.7"
   }
 }
