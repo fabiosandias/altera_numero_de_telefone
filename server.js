@@ -5,8 +5,13 @@ const https = require("https");
 const express = require("express");
 
 const { getHistory } = require("./src/services/historyService");
-const { getConversation } = require("./src/services/conversationService");
-const { getRental } = require("./src/services/rentalService");
+const {
+  getConversation,
+  removeConversationDuplicates,
+} = require("./src/services/conversationService");
+const { getRental, removeRentalDuplicates } = require(
+  "./src/services/rentalService"
+);
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -40,6 +45,28 @@ app.get("/rental", async (req, res) => {
   } catch (error) {
     console.error("Erro ao buscar rental", error);
     res.status(500).json({ message: "Erro ao buscar registros de rental." });
+  }
+});
+
+app.post("/rental/deduplicate", async (req, res) => {
+  try {
+    const result = await removeRentalDuplicates();
+    res.json(result);
+  } catch (error) {
+    console.error("Erro ao remover duplicatas de rental", error);
+    res.status(500).json({ message: "Erro ao remover duplicatas de rental." });
+  }
+});
+
+app.post("/conversation/deduplicate", async (req, res) => {
+  try {
+    const result = await removeConversationDuplicates();
+    res.json(result);
+  } catch (error) {
+    console.error("Erro ao remover duplicatas de conversation", error);
+    res
+      .status(500)
+      .json({ message: "Erro ao remover duplicatas de conversation." });
   }
 });
 
